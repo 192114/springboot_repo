@@ -1,0 +1,3 @@
+rootProject.name = 'springboot_repo'
+
+include 'backend-common', 'backend-account', 'backend-app', 'backend-admin'

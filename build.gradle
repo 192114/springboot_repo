@@ -1,0 +1,76 @@
+plugins {
+    id 'base'
+    id 'org.springframework.boot' version '4.1.0' apply false
+    id 'io.spring.dependency-management' version '1.1.7' apply false
+}
+
+allprojects {
+    group = 'com.shadow'
+    version = '0.0.1-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+ext {
+    mybatisPlusVersion = '3.5.16'
+    saTokenVersion = '1.45.0'
+    argon2Version = '2.12'
+    springdocVersion = '3.0.2'
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'checkstyle'
+    apply plugin: 'io.spring.dependency-management'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+        testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    checkstyle {
+        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+        toolVersion = '10.26.1'
+        maxWarnings = 0
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.compilerArgs.add('-parameters')
+    }
+
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
+    }
+}
+
+tasks.named('assemble') {
+    dependsOn subprojects.collect { "${it.path}:assemble" }
+}
+
+tasks.named('check') {
+    dependsOn subprojects.collect { "${it.path}:check" }
+}
+
+tasks.named('clean') {
+    dependsOn subprojects.collect { "${it.path}:clean" }
+}

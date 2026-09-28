@@ -1,0 +1,9 @@
+description = 'Shared user and App session services'
+
+dependencies {
+    api project(':backend-common')
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation "com.baomidou:mybatis-plus-extension:${mybatisPlusVersion}"
+}

@@ -1,0 +1,28 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+description = 'App API application'
+
+springBoot {
+    mainClass = 'com.shadow.backend.app.AppApplication'
+}
+
+dependencies {
+    implementation project(':backend-common')
+    implementation project(':backend-account')
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation "com.baomidou:mybatis-plus-spring-boot4-starter:${mybatisPlusVersion}"
+    implementation "cn.dev33:sa-token-spring-boot4-starter:${saTokenVersion}"
+    implementation "cn.dev33:sa-token-redis-template:${saTokenVersion}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}"
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+tasks.named('jar') {
+    enabled = false
+}

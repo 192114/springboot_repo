@@ -1,0 +1,14 @@
+description = 'Shared infrastructure'
+
+dependencies {
+    api "com.baomidou:mybatis-plus-core:${mybatisPlusVersion}"
+    api "cn.dev33:sa-token-core:${saTokenVersion}"
+
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-aspectj'
+    implementation "com.baomidou:mybatis-plus-jsqlparser:${mybatisPlusVersion}"
+    implementation "org.springdoc:springdoc-openapi-starter-common:${springdocVersion}"
+    implementation "de.mkammerer:argon2-jvm:${argon2Version}"
+}
